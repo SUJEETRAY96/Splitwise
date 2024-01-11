@@ -1,5 +1,6 @@
 package com.example.Splitwise.controllers;
 
+import com.example.Splitwise.dtos.SettleUpGroupRequestDTO;
 import com.example.Splitwise.dtos.SettleUpUserRequestDTO;
 import com.example.Splitwise.dtos.SettleUpUserResponseDTO;
 import com.example.Splitwise.services.ExpenseService;
@@ -18,6 +19,14 @@ public class ExpenseController {
     }
     public SettleUpUserResponseDTO settleup(SettleUpUserRequestDTO request){
         List<Transaction> transactions = expenseService.settleUpUser(request.getUserId());
+        SettleUpUserResponseDTO responseDTO = new SettleUpUserResponseDTO();
+        responseDTO.setMessage("Settled");
+        responseDTO.setStatus("SUCCESS");
+        responseDTO.setTransactionList(transactions);
+        return responseDTO;
+    }
+    public SettleUpUserResponseDTO settleupzgroup(SettleUpGroupRequestDTO request){
+        List<Transaction> transactions = expenseService.settleUpGroup(request.getGroupId());
         SettleUpUserResponseDTO responseDTO = new SettleUpUserResponseDTO();
         responseDTO.setMessage("Settled");
         responseDTO.setStatus("SUCCESS");
